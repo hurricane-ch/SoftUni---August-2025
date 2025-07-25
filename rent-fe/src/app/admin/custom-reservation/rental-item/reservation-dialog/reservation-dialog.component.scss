@@ -1,0 +1,25 @@
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Adds spacing between fields */
+}
+
+mat-form-field {
+  width: 100%; /* Ensure fields take full width */
+}
+
+mat-checkbox a {
+  color: #1976d2;
+  text-decoration: underline;
+}
+
+mat-checkbox span {
+  font-size: 16px;
+}
+
+.readonly-field input {
+  background-color: #f9fafb; /* soft light background */
+  cursor: default;
+  color: #000; /* ensure text color is strong */
+  font-weight: 500;
+}

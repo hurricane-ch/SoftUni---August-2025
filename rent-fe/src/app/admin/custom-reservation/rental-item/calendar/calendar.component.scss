@@ -1,0 +1,60 @@
+::ng-deep .mat-calendar-header {
+  display: none !important;
+}
+
+::ng-deep .mat-calendar-body-label {
+  color: transparent !important; /* Hides numbers but keeps the space */
+  pointer-events: none; /* Prevents interaction */
+}
+
+.error-message {
+  position: absolute;
+  background-color: red;
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+}
+
+.calendar-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.calendar-card {
+  flex: 1;
+  max-width: 250px;
+}
+
+::ng-deep .red-date .mat-calendar-body-cell-content {
+  background-color: red !important;
+  color: white !important;
+  border-radius: 50%;
+}
+
+::ng-deep .green-date .mat-calendar-body-cell-content {
+  background-color: green !important;
+  color: white !important;
+  border-radius: 50%;
+}
+
+::ng-deep .mat-calendar-table-header th:nth-child(1),
+::ng-deep .mat-calendar-table-header th:nth-child(2),
+::ng-deep .mat-calendar-table-header th:nth-child(3),
+::ng-deep .mat-calendar-table-header th:nth-child(4),
+::ng-deep .mat-calendar-table-header th:nth-child(5) {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+::ng-deep .mat-calendar-table-header th:nth-child(6),
+::ng-deep .mat-calendar-table-header th:nth-child(7) {
+  color: red !important;
+  font-weight: bold;
+  font-size: 15px;
+}

@@ -1,3 +1,4 @@
+import { RentalItem } from './../shared/interfaces/rental-item';
 import {Routes} from '@angular/router';
 import {HomeComponent} from "./home.component";
 
@@ -16,6 +17,11 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import("./custom-reservation/custom-reservation.component").then(m => m.CustomReservationComponent),
             },
+              {
+                path: "rental-item/:id",
+               loadComponent: () =>
+                    import("./custom-reservation/rental-item/rental-item.component").then(m => m.RentalItemComponent),
+              },
             {
                 path: "dashboard",
                 loadComponent: () =>
