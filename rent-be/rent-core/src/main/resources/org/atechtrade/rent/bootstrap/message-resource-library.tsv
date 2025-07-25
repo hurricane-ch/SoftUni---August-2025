@@ -1,0 +1,73 @@
+#code	languageId	message
+global.yes	bg	Да
+global.yes	en	Yes
+global.no	bg	Не
+global.no	en	No
+global.successfully	bg	Успешно
+global.successfully	en	Successfully
+global.failed	bg	Провален
+global.failed	en	Failed
+global.token.expired	bg	Токенът е изтекъл
+global.token.expired	en	The token has expired
+global.something.went.wrong	bg	Нещо се обърка
+global.something.went.wrong	en	Something went wrong
+global.token.not.found	bg	Токенът не е намерен
+global.token.not.found	en	Token not found
+
+email.reservation.verification.code.subject	bg	Вашият код за потвърждение на резервация от bungala-rayat.com
+email.reservation.verification.code.subject	en	Your booking confirmation code from bungala-rayat.com
+
+email.create.reservation.subject	bg	Вашата резервация номер {0} беше приета
+email.create.reservation.subject	en	Your reservation number {0} has been accepted
+
+email.confirm.reservation.subject	bg	Вашата резервация номер {0} беше потвърдена
+email.confirm.reservation.subject	en	Your reservation number {0} has been confirmed
+
+email.reject.reservation.subject	bg	Вашата резервация номер {0} беше отказана
+email.reject.reservation.subject	en	Your reservation number {0} has been rejected
+
+email.create.reservation.admin.notification.subject	bg	Нова резервация с номер {0} беше получена
+email.create.reservation.admin.notification.subject	en	New reservation with number {0} has been received
+
+email.register.user.verification.subject	bg	Потвърждение за регистрация
+email.register.user.verification.subject	en	Registration Confirmation
+email.register.user.verification.message	bg	Благодарим ви, че създадохте акаунт. Моля, щракнете върху връзката по-долу, за да активирате акаунта си. Тази връзка ще изтече след 24 часа.
+email.register.user.verification.message	en	Thank you for creating an account. Please click the link below to activate your account. This link will expire in 24 hours.
+
+email.forgot.password.verification.subject	bg	Потвърждение за нулиране на парола
+email.forgot.password.verification.subject	en	Reset Password Confirmation
+email.forgot.password.verification.message	bg	Добре дошъл обратно. Моля, щракнете върху връзката по-долу, за да нулирате паролата си. Тази връзка ще изтече след 24 часа.
+email.forgot.password.verification.message	en	Welcome back. Please click the link below to reset your password. This link will expire in 24 hours.
+
+email.application.payment.notification.subject	bg	Уведомление за подадено заявление за предоставяне административна услуга от БАБХ.
+email.application.payment.notification.subject	en	Notification of submitted application for provision of administrative service.
+email.application.payment.notification.message	bg	Входящ номер:{0}\nАдминистративна услуга: {1}\nТакса: {2}\n\tИмате възможност да платите като използвате средата за електронни плащания за централната и местната администрация на МЕУ  https://pay.egov.bg/\n\tВходът в системата е възможен чрез:\n- Квалифициран електронен подпис (КЕП)\n- Код за плащане <ние генерираме>, валиден 24 часа.\n\tАко вече сте платили, моля да ни извините.\n\tТова съобщение e генерирано автоматично. Моля не му отговаряйте.\n
+email.application.payment.notification.message	en	тука трябва да има текст за съобщението на английски
+
+email.application.correction.notification.subject	bg	Връщане за корекция
+email.application.correction.notification.subject	en	Return for correction
+
+create.email.verification.code.success	bg	Код за потвърждение на имейл е изпратен на {0}. Имате {1} минути да потвърдите вашия имейл.
+create.email.verification.code.success	en	A email confirmation code has been sent to {0}. You have {1} minutes to confirm your email.
+
+forgot.password.success	bg	Код за смяна на парола е изпратен на {0}. Имате {1} часа да смените вашата парола.
+forgot.password.success	en	A password reset code has been sent to {0}. You have {1} hours to change your password.
+forgot.password.email.in.use	bg	Имейл адресът вече се използва!
+forgot.password.email.in.use	en	Email Address already in use!
+
+S502.name	bg	ЗАЯВЛЕНИЕ за одобряване на бази за извършване на биологично изпитване на продукти за растителна защита по чл.74, ал.. 1 от Закона за защита на растенията и чл.22, ал. 4 от Наредба No 19 от 8 ноември 2016 г за биологично изпитване на продукти за растителна защита.
+S502.name	en	ЗАЯВЛЕНИЕ за одобряване на бази за извършване на биологично изпитване на продукти за растителна защита по чл.74, ал.. 1 от Закона за защита на растенията и чл.22, ал. 4 от Наредба No 19 от 8 ноември 2016 г за биологично изпитване на продукти за растителна защита.
+
+error.person.build	bg	{0} с идентификатор: {1}  има тип {2}, който се различава от типа {3} получен от заявлението
+error.person.build	en	{0} with identifier: {1}  has type {2} which is different than the type {3} received from application
+
+enum.AddressType.PERMANENT	bg	Постоянен адрес
+enum.AddressType.PERMANENT	en	Permanent address
+enum.AddressType.CURRENT	bg	Настоящ адрес
+enum.AddressType.CURRENT	en	Current address
+enum.AddressType.HEAD_OFFICE	bg	Адрес на управление
+enum.AddressType.HEAD_OFFICE	en	Head office address
+enum.AddressType.CORRESPONDENCE	bg	Адрес за кореспонденция (ДРУГ)
+enum.AddressType.CORRESPONDENCE	en	Correspondence address
+enum.AddressType.CORRESPONDENCE_NRA	bg	Адрес за кореспонденция с НАП
+enum.AddressType.CORRESPONDENCE_NRA	en	NRA correspondence address

@@ -1,0 +1,64 @@
+<div class="flex gap-2">
+  <mat-form-field class="w-full">
+    <mat-label>{{ label }}</mat-label>
+    <input
+      type="text"
+      [placeholder]="placeholder"
+      matInput
+      #searchQuery
+      [matAutocomplete]="auto"
+      [required]="required"
+      [disabled]="disabled"
+      (input)="onSearchUpdated(searchQuery.value)"
+      (blur)="onTouchedHandler()"
+    />
+    @if (searchQuery.value.length < minQueryLength && !noHint) {
+      <mat-hint *ngIf="minQueryLength"
+        >Въведете минимум {{ minQueryLength }} знак{{
+          minQueryLength > 1 ? "а" : ""
+        }}, за да започнете търсенето.</mat-hint
+      >
+    }
+    @if (searchQuery.value.length) {
+      <button
+        *ngIf="!this.disabled"
+        matSuffix
+        mat-icon-button
+        matTooltip="Изчисти"
+        type="button"
+        (click)="reset()"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    }
+
+    <mat-icon matSuffix class="my-icon">arrow_drop_down</mat-icon>
+
+    <mat-autocomplete
+      #auto="matAutocomplete"
+      [displayWith]="displayFn"
+      (optionSelected)="onSelected($event.option.value)"
+      [requireSelection]="required"
+    >
+      @for (item of listOfOptions$ | async; track $index) {
+        <mat-option [value]="item">
+          {{ displayFn(item) }}
+        </mat-option>
+      } @empty {
+        @if (notFoundAction) {
+          <mat-option (click)="notFoundAction()">
+            <div class="mb-2">{{ notFoundText }}</div>
+            <button mat-stroked-button type="button" (click)="notFoundAction()">
+              <mat-icon>add</mat-icon>
+              {{ notFoundButtonText || "Добави" }}
+            </button>
+          </mat-option>
+        } @else {
+          <mat-option disabled>
+            {{ notFoundText || "Не е намерено" }}
+          </mat-option>
+        }
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</div>

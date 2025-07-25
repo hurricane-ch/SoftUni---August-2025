@@ -1,0 +1,176 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="isHandset ? 'over' : 'side'"
+    [opened]="(isHandset$ | async) === false"
+  >
+    <div class="flex flex-col h-full">
+      <div class="flex flex-col gap-8 p-4 flex-1">
+        <div>
+          <div class="font-bold uppercase text-xs opacity-50 mb-4">
+            {{ "nav.category.management" | translate }}
+          </div>
+          <div class="flex flex-col gap-2 pl-3 mb-1">
+            <a
+              routerLinkActive="active"
+              routerLink="dashboard"
+              class="flex items-center gap-2 hover:underline"
+            >
+              <mat-icon class="opacity-50 shrink-0"> home </mat-icon>
+              <div>
+                {{ "nav.dashboard" | translate }}
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div *ngIf="isAdmin">
+          <div class="font-bold uppercase text-xs opacity-50 mb-4">
+            {{ "nav.category.administration" | translate }}
+          </div>
+          <div class="flex flex-col gap-2 pl-3">
+            <a
+              routerLinkActive="active"
+              routerLink="classifier"
+              class="flex items-center gap-2 hover:underline"
+            >
+              <mat-icon class="opacity-50 shrink-0">
+                account_tree
+              </mat-icon>
+              <div>
+                {{ "nav.classifiers" | translate }}
+              </div>
+            </a>
+            <a
+              routerLinkActive="active"
+              routerLink="settlement"
+              class="flex items-center gap-2 hover:underline"
+            >
+              <mat-icon class="opacity-50 shrink-0"> map </mat-icon>
+              <div>
+                {{ "nav.settlements" | translate }}
+              </div>
+            </a>
+            <a
+              routerLinkActive="active"
+              routerLink="message-resource"
+              class="flex items-center gap-2 hover:underline"
+            >
+              <mat-icon class="opacity-50"> chat </mat-icon>
+              {{ "nav.messageResources" | translate }}
+            </a>
+            <a
+              routerLinkActive="active"
+              routerLink="language"
+              class="flex items-center gap-2 hover:underline"
+            >
+              <mat-icon class="opacity-50 shrink-0"> language </mat-icon>
+              {{ "nav.languages" | translate }}
+            </a>
+            <a
+              routerLinkActive="active"
+              routerLink="branch"
+              class="flex items-center gap-2 hover:underline"
+            >
+              <mat-icon class="opacity-50 shrink-0">
+                content_copy
+              </mat-icon>
+              {{ "nav.branches" | translate }}
+            </a>
+            <a
+              routerLinkActive="active"
+              routerLink="user"
+              class="flex items-center gap-2 hover:underline"
+            >
+              <mat-icon class="opacity-50 shrink-0">
+                verified_user
+              </mat-icon>
+              {{ "nav.users" | translate }}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="flex items-center justify-center gap-2 p-3">
+        <mat-icon class="">brightness_5</mat-icon>
+        <mat-slide-toggle
+          [checked]="checked"
+          (change)="onToggle($event)"
+        ></mat-slide-toggle>
+        <mat-icon>bedtime</mat-icon>
+      </div>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="flex flex-row toolbar">
+      <button
+        *ngIf="drawer.opened"
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+      >
+        <mat-icon aria-label="Side nav toggle icon">
+          keyboard_double_arrow_left
+        </mat-icon>
+      </button>
+
+      <button
+        *ngIf="!drawer.opened"
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+      >
+        <mat-icon aria-label="Side nav toggle icon">
+          keyboard_double_arrow_right
+        </mat-icon>
+      </button>
+
+      <button
+        *ngIf="drawer.opened"
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        routerLink="profile"
+      >
+        <mat-icon aria-label="profile">
+          <mat-icon>person</mat-icon>
+        </mat-icon>
+      </button>
+
+      <div *ngIf="userToken" class="ml-3 font-normal">
+        {{ userToken?.fullName }}
+      </div>
+      <button class="ml-auto" mat-icon-button (click)="logout()">
+        <mat-icon aria-label="profile">
+          <mat-icon>logout</mat-icon>
+        </mat-icon>
+      </button>
+      <span class="-ml-1.5 mb-0.6" (click)="logout()">Изход</span>
+      <!-- <button
+        mat-icon-button
+        [matMenuTriggerFor]="menu"
+        aria-label="Toggle menu"
+      > -->
+      <!-- <img
+          src="https://randomuser.me/api/portraits/men/1.jpg"
+          class="mb-2 rounded-full"
+          alt="User" -->
+      <!-- </button> -->
+      <!-- <mat-menu #menu="matMenu" xPosition="before"> -->
+
+      <!-- </mat-menu> -->
+    </mat-toolbar>
+    <!-- Add Content Here -->
+   <div class="p-4">
+     <router-outlet></router-outlet>
+   </div>
+   
+  </mat-sidenav-content>
+</mat-sidenav-container>

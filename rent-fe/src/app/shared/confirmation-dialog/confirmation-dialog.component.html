@@ -1,0 +1,15 @@
+<h2 mat-dialog-title class="text-center">{{ data.header }}</h2>
+<mat-dialog-content>
+  <p>{{ data.body }}</p>
+</mat-dialog-content>
+<div class="flex justify-between">
+  <button mat-raised-button color="warn" mat-dialog-close>Отказ</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [mat-dialog-close]="true"
+    cdkFocusInitial
+  >
+    Продължи
+  </button>
+</div>

@@ -1,0 +1,97 @@
+@if (!isConfirmed) {
+<h2 mat-dialog-title>Add Rental Item</h2>
+
+<div>
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="form">
+<mat-form-field appearance="outline" class="w-full readonly-field">
+  <mat-label>Цена</mat-label>
+  <input matInput [value]="form.get('price')?.value" readonly />
+</mat-form-field>
+
+<mat-form-field appearance="outline" class="w-full readonly-field">
+  <mat-label>Начална дата</mat-label>
+  <input matInput [value]="getFormattedDate(form.get('fromDate')?.value)" readonly />
+</mat-form-field>
+
+
+<mat-form-field appearance="outline" class="w-full readonly-field">
+      <mat-label>Крайна дата</mat-label>
+      <input
+        matInput
+        [value]="getFormattedDate(form.get('toDate')?.value)"
+        readonly
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Име</mat-label>
+      <input matInput formControlName="fullName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Телефон на връзка</mat-label>
+      <input matInput formControlName="phone" />
+    </mat-form-field>
+
+    <div class="flex w-full items-start space-x-2">
+      <mat-form-field appearance="outline" class="w-4/5">
+        <mat-label>Валиден email адрес</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+    
+      <button
+      mat-flat-button
+      color="primary"
+      class="w-1/5 min-w-0"
+      style="height: 56px;"
+      (click)="onSendCode()"
+      [disabled]="!isVerificationReady() || sendCodeDisabled"
+    >
+      {{ sendCodeDisabled ? 'Изпрати код (' + countdown + ')' : 'ИЗПРАТИ КОД' }}
+    </button>
+    
+    </div>
+    
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Код за потвърждение</mat-label>
+      <input matInput formControlName="confirmCode" />
+    </mat-form-field>
+
+    <div class="mt-2">
+      <mat-checkbox formControlName="termsAccepted" class="mt-4">
+        <span>
+          Съгласям се с 
+          <a href="#" (click)="openTerms($event)">общите условия на сайта</a>
+        </span>
+      </mat-checkbox>
+    </div>
+    
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button
+  mat-raised-button
+  color="primary"
+  (click)="onSubmit()"
+  [disabled]="form.invalid || !form.get('confirmCode')?.valid"
+>
+  Резервирай
+</button>
+</mat-dialog-actions>
+</div>
+}
+
+@if (isConfirmed) {
+  <div class="p-4 text-center">
+    <h2 class="text-xl font-semibold mb-2 text-green-600">Успешна резервация!</h2>
+    <p>Вашата резервация е получена успешно.</p>
+    <p>След потвърдено плащане ще получите писмо на посочения от вас e-mail.</p>
+
+    <div class="mt-4">
+      <button mat-flat-button color="primary" (click)="onCancel()">Затвори</button>
+    </div>
+  </div>
+}

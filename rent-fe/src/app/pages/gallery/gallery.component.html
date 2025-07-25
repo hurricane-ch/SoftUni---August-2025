@@ -1,0 +1,25 @@
+<app-navbar />
+
+<main>
+  <div
+    class="relative pt-16 pb-32 flex items-center justify-center min-h-screen"
+  >
+    <div
+      class="absolute top-0 left-0 w-full h-full bg-center bg-cover bg-[url(/assets/images/start-page1.jpg)]"
+    >
+      <div class="w-full h-full absolute bg-black/40 backdrop-blur-sm"></div>
+    </div>
+
+    <div class="relative z-10 grid md:grid-cols-2 lg:grid-cols-4 gap-6 p-4 w-full max-w-screen-xl">
+      @for (image of galleryImages; track $index) {
+        <div class="h-80 rounded-lg overflow-hidden shadow-lg">
+          <img
+            [src]="'assets/gallery/' + image"
+            class="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
+            alt="Gallery image"
+          />
+        </div>
+      }
+    </div>
+  </div>
+</main>

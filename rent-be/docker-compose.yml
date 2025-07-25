@@ -1,0 +1,24 @@
+services:
+  rent:
+    container_name: rent-be
+    image: rent-be:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/home/srv/rent-be/logs:/home/rent/logs"
+      - "/home/srv/rent-be/storage:/home/rent/storage"
+    networks:
+      - net-rent
+    ports:
+      - "8080:8080"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}"
+      - JAVA_OPTS=-Xmx4096M -Xms2048M -XX:MaxPermSize=1024M -Djava.awt.headless=true
+      - CATALINA_OPTS=-Xmx4096M -Xms2048M -XX:MaxPermSize=1024M -XX:+UseParallelGC -XX:MaxGCPauseMillis=1500 -XX:GCTimeRatio=9 -XX:+DisableExplicitGC -server
+networks:
+  net-rent:
+    driver: bridge

@@ -1,0 +1,67 @@
+server:
+  address: 127.0.0.1
+  port: ${SERVER_PORT:8080}
+  compression.enabled: true
+  servlet:
+    context-path: /rent-core
+    session.timeout: 1800
+
+springdoc:
+  api-docs:
+    version: openapi_3_1
+    path: /api-docs
+  swagger-ui:
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    tags-sorter: alpha
+    use-root-path: true
+    path: /swagger-ui
+
+logging:
+  level:
+    org.springframework:
+      boot.autoconfigure: INFO
+      security: WARN
+      web: INFO
+    org.atechtrade.rent: INFO
+
+spring:
+  web:
+    resources:
+      # Disables automatic mapping of static resources from locations like /static, /public, /resources or /META-INF/resources
+      add-mappings: false
+  jackson.default-property-inclusion: non_null
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 5GB
+      max-request-size: 5GB
+  liquibase:
+    # enable it at the second stage of the project
+    # when the schema and tables plus initial data are almost clear
+    # to enable you should disable defer-datasource-initialization and set ddl-auto: validate
+    enabled: false
+    change-log: classpath:/db/db.changelog-master.xml
+
+jwt:
+  secret: b9e3fc85eab447b8b8aa6e415fbd2323cbd5a3f0d54e4aa3aab7f649cb1d2457
+  # Access token lifespan milliseconds (3600000 = 60 min)
+  exp: 3600000
+  # Refresh token lifespan milliseconds (86400000 = 24 hours)
+  refresh-exp: 86400000
+  # FE verify new user registration URL
+  register-user-verification-token-url: 'http://localhost:4200/rent/auth/user-registration?token='
+  # FE verify forgot password URL
+  forgot-password-verification-token-url: 'http://localhost:4200/rent/auth/forgot-password?token='
+
+rent:
+  api:
+    version: v0.0.1
+  support-email: rent-test@atechtrade.org
+  bootstrap:
+    message-resource-library: message-resource-library.tsv
+
+  file-store:
+    base-path: /home/rent/storage
+    single-backup: true

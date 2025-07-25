@@ -1,0 +1,14 @@
+<div class="dialog-container">
+  <mat-icon class="warning-icon" color="warn">warning</mat-icon>
+  <h2>Confirmation</h2>
+  <p>{{ data.message }}</p>
+
+  <div class="dialog-actions">
+    <button mat-stroked-button color="warn" (click)="onCancel()">
+      <mat-icon>thumb_down</mat-icon> <span>Reject</span>
+    </button>
+    <button mat-stroked-button color="primary" (click)="onConfirm()">
+      <mat-icon>thumb_up</mat-icon> <span>Confirm</span>
+    </button>
+  </div>
+</div>

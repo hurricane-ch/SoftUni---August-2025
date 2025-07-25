@@ -1,0 +1,191 @@
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+
+<div class="m-4 pb-20">
+  <div class="dashboard">
+    <div class="row">
+      <div class="icon-container" [routerLink]="['/admin/rental-holder']">
+        <button mat-icon-button class="dashboard-icon" class="dashboard-icon">
+          <mat-icon>person_search</mat-icon>
+        </button>
+        <span class="dashboard-span"> Къмпинг </span>
+      </div>
+      <div class="icon-container" [routerLink]="['/admin/rental-items']">
+        <button mat-icon-button class="dashboard-icon" class="dashboard-icon">
+          <mat-icon>apartment</mat-icon>
+        </button>
+        <span class="dashboard-span"> Бунгала </span>
+      </div>
+      <div class="icon-container" [routerLink]="['/admin/reservations']">
+        <button mat-icon-button class="dashboard-icon">
+          <mat-icon>event_available</mat-icon>
+        </button>
+        <span class="dashboard-span"> Резервации </span>
+      </div>
+      <div class="icon-container" [routerLink]="['/admin/reservation-list']">
+        <button mat-icon-button class="dashboard-icon">
+          <mat-icon>list</mat-icon>
+        </button>
+        <span class="dashboard-span"> Резервации обобщено </span>
+      </div>
+      <!-- <div class="icon-container">
+        <a
+          routerLink="../persons-offering-work-and-training"
+          class="flex flex-col items-center"
+        >
+          <button mat-icon-button class="dashboard-icon">
+            <mat-icon fontSet="material-symbols-outlined">location_away</mat-icon>
+          </button>
+          <span class="dashboard-span text-center">
+            Лица, предлагащи работа и обучение
+          </span>
+        </a>
+      </div> -->
+      <!-- <div class="icon-container">
+        <button
+          mat-icon-button
+          class="dashboard-icon"
+          [routerLink]="['../orientation']"
+        >
+          <mat-icon>flip_camera_android</mat-icon>
+        </button>
+        <span class="dashboard-span"> Ориентиране </span>
+      </div> -->
+      <!-- <div class="icon-container">
+        <button mat-icon-button class="dashboard-icon">
+          <mat-icon>travel_explore</mat-icon>
+        </button>
+        <span class="dashboard-span"> Трудова миграция </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icon-container">
+        <button mat-icon-button class="dashboard-icon">
+          <mat-icon fontSet="material-symbols-outlined">order_approve</mat-icon>
+        </button>
+        <span class="dashboard-span"> Проекти </span>
+      </div>
+      <div class="icon-container">
+        <button mat-icon-button class="dashboard-icon">
+          <mat-icon>business_center</mat-icon>
+        </button>
+        <span class="dashboard-span"> Заетост </span>
+      </div>
+      <div class="icon-container">
+        <button mat-icon-button class="dashboard-icon">
+          <mat-icon>school</mat-icon>
+        </button>
+        <span class="dashboard-span"> Обучение </span>
+      </div>
+      <div class="icon-container">
+        <button mat-icon-button class="dashboard-icon">
+          <mat-icon>groups</mat-icon>
+        </button>
+        <span class="dashboard-span">Мерки за БЛ</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icon-container">
+        <button mat-icon-button class="dashboard-icon">
+          <mat-icon>checklist_rtl</mat-icon>
+        </button>
+        <span class="dashboard-span"> Контролна дейност </span>
+      </div>
+      <div class="icon-container">
+        <button mat-icon-button class="dashboard-icon">
+          <mat-icon>payments</mat-icon>
+        </button>
+        <span class="dashboard-span"> Плащане </span>
+      </div>
+      <div class="icon-container">
+        <button mat-icon-button class="dashboard-icon">
+          <mat-icon>trending_up</mat-icon>
+        </button>
+        <span class="dashboard-span"> Планиране </span>
+      </div>
+      <div class="icon-container">
+        <button mat-icon-button class="dashboard-icon">
+          <mat-icon>area_chart</mat-icon>
+        </button>
+        <span class="dashboard-span"> Справки </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="icon-container">
+        <button mat-icon-button class="dashboard-icon ">
+          <mat-icon>settings</mat-icon>
+        </button>
+        <span class="dashboard-span"> Администриране </span>
+      </div>
+      -->
+    </div>
+  </div>
+</div>
+
+<div class="mt-96 p-2">
+  <div class="mt-24">
+    <mat-card class="bg-gray-600 mb-6">
+      <div *ngIf="!backendBuildInfo && !errorBuildInfo" class="animate-pulse">
+        Loading build info...
+      </div>
+      <div *ngIf="errorBuildInfo">
+        <div class="flex items-center text-orange-400 gap-1">
+          <mat-icon> error </mat-icon>
+          Error loading build info. Please try again later.
+        </div>
+      </div>
+      <div *ngIf="backendBuildInfo">
+        BackEnd
+        <mat-card-content>
+          <div class="flex flex-col xl:flex-row gap-4 justify-between">
+            <div>
+              <div class="text-gray-400">Version:</div>
+              {{ backendBuildInfo.version }}
+            </div>
+            <div>
+              <div class="text-gray-400">Time:</div>
+              {{ backendBuildInfo.time | date : "medium" }}
+            </div>
+            <div>
+              <div class="text-gray-400">Commit ID:</div>
+              {{ backendBuildInfo.gitCommitId }}
+            </div>
+            <div>
+              <div class="text-gray-400">Commit Time:</div>
+              {{ backendBuildInfo.gitCommitTime | date : "medium" }}
+            </div>
+          </div>
+        </mat-card-content>
+      </div>
+    </mat-card>
+
+    <mat-card class="bg-gray-600 mb-6">
+      <div *ngIf="!frontendBuildInfo && !errorBuildInfo" class="animate-pulse">
+        Loading build info...
+      </div>
+      <div *ngIf="errorBuildInfo">
+        <div class="flex items-center text-orange-400 gap-1">
+          <mat-icon> error </mat-icon>
+          Error loading build info. Please try again later.
+        </div>
+      </div>
+      <div *ngIf="frontendBuildInfo">
+        FrontEnd
+        <mat-card-content>
+          <div class="flex flex-col xl:flex-row gap-4 justify-between">
+            <div>
+              <div class="text-gray-400">Version:</div>
+              {{ frontendBuildInfo.version }}
+            </div>
+            <div>
+              <div class="text-gray-400">Time:</div>
+              {{ frontendBuildInfo.timestamp | date : "medium" }}
+            </div>
+          </div>
+        </mat-card-content>
+      </div>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+table {
+  width: 100%;
+  text-align: center; /* Centers text in table */
+}
+
+th,
+td {
+  text-align: center !important; /* Ensure center alignment */
+  vertical-align: middle !important; /* Align content vertically */
+}
+
+.mat-header-cell,
+.mat-cell {
+  justify-content: center; /* Center content */
+  text-align: center;
+}
+
+h2 {
+  margin-top: 15px;
+  text-align: center; /* Center headings */
+}
+
+.paid-value {
+    cursor: pointer;
+    color: inherit; /* Default color */
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out, font-size 0.3s ease-in-out; /* Smooth transition */
+}
+
+.paid-value:hover {
+    color: blue; /* Change to blue on hover */
+    transform: scale(1.5); /* Scale up by 20% */
+    font-size: 1.2em; /* Increase font size */
+}

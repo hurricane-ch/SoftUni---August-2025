@@ -1,0 +1,72 @@
+<form [formGroup]="dialogForm" novalidate (ngSubmit)="onSubmit()">
+  <div mat-dialog-title>{{ data.isAdd ? "Add a" : "Edit the" }} branch</div>
+  <mat-dialog-content>
+    <div class="flex flex-col">
+      <mat-form-field class="mb-2" appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+        <mat-error *ngIf="dialogForm.controls['name'].hasError('required')">
+          Name is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="mb-2" appearance="fill">
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+      </mat-form-field>
+      <app-autocomplete-search
+        label="Населено място"
+        formControlName="settlementCode"
+        [fetchDataFn]="getSettlements"
+        [displayFn]="displaySettlement"
+      />
+      <mat-form-field class="mb-2" appearance="fill">
+        <mat-label>Address</mat-label>
+        <input matInput formControlName="address" />
+        <mat-error *ngIf="dialogForm.controls['address'].hasError('required')">
+          Address is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="mb-2" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+        <mat-error *ngIf="dialogForm.controls['email'].hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="mb-2" appearance="fill">
+        <mat-label>Phone 1</mat-label>
+        <input matInput formControlName="phone1" />
+        <mat-error *ngIf="dialogForm.controls['phone1'].hasError('required')">
+          Phone is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field class="mb-2" appearance="fill">
+        <mat-label>Phone 2</mat-label>
+        <input matInput formControlName="phone2" />
+      </mat-form-field>
+      <mat-form-field class="mb-2" appearance="fill">
+        <mat-label>Phone 3</mat-label>
+        <input matInput formControlName="phone3" />
+      </mat-form-field>
+      <div class="flex gap-6 mb-4">
+        <mat-slide-toggle color="primary" formControlName="main">
+          Main
+        </mat-slide-toggle>
+        <mat-slide-toggle color="primary" formControlName="enabled">
+          Enabled
+        </mat-slide-toggle>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <div class="flex justify-between">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="dialogForm.invalid || dialogForm.pristine"
+    >
+      {{ data.isAdd ? "Add" : "Update" }}
+    </button>
+  </div>
+</form>

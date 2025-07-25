@@ -1,0 +1,20 @@
+#workflow:
+#  rules:
+#    - if: '$CI_COMMIT_BRANCH == "develop"'
+#    - if: $CI_COMMIT_BRANCH == "staging"
+
+stages:
+  - deploy
+
+deploy_job:
+  tags:
+    - $CI_COMMIT_BRANCH
+  stage: deploy
+  before_script:
+    - echo "Deploying to the $CI_COMMIT_BRANCH environment..."
+    - source "$HOME/.bashrc"
+    - npm ci
+    - npm run generate-build-info --if-present
+  script:
+    - npx ng run at-rent-fe:build:$CI_COMMIT_BRANCH
+    - rsync -av --delete dist/at-rent-fe/browser/ /var/www/bungala-rayat.com/at-rent/

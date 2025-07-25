@@ -1,0 +1,69 @@
+### POST login (Set access_token to the global variables)
+POST {{host}}/api/v0.0.1/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+username=admin&password=admin
+
+> {%
+    client.test("Request executed successfully", function() {
+        if (response.status === 200) {
+            client.global.set("access_token", response.body["token"])
+            client.global.set("refresh_token", response.body["refreshToken"])
+        }
+        client.assert(response.status === 200, "Access is Denied");
+    });
+%}
+
+###  BranchController # getById
+GET {{host}}/api/v0.0.1/rental-holders/1
+accept: */*
+Authorization: Bearer {{access_token}}
+
+###  RentalHolder # findAll
+GET {{host}}/api/v0.0.1/rental-holders
+accept: */*
+Authorization: Bearer {{access_token}}
+
+###  RentalHolder # create
+POST {{host}}/api/v0.0.1/rental-holders
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "name": "XXX-XXX",
+  "openDate": "2024-03-01",
+  "closeDate": "2024-10-31",
+  "description": "A beautiful park with scenic views and outdoor activities.",
+  "address": "123 Main Street, Cityville, ST 12345",
+  "longitude": "-122.4194",
+  "latitude": "37.7749",
+  "phone": "+1-555-123-4567",
+  "email": "contact@sunsetpark.com",
+  "facebookUrl": "https://www.facebook.com/sunsetpark",
+  "instagramUrl": "https://www.instagram.com/sunsetpark",
+  "tiktokUrl": "https://www.tiktok.com/@sunsetpark",
+  "foodPlacesDescription": "Multiple food stalls offering local and international cuisines.",
+  "entertainmentPlacesDescription": "Live music, outdoor movies, and family-friendly events."
+}
+
+###  Upload File
+PATCH {{host}}/api/v0.0.1/rental-holders/1/attach
+accept: */*
+Authorization: Bearer {{access_token}}
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="bungalow.png"
+
+< bungalow.png
+
+--WebAppBoundary
+Content-Disposition: form-data; name="description"
+
+777
+
+--WebAppBoundary
+Content-Disposition: form-data; name="main"
+
+true
+--WebAppBoundary

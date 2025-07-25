@@ -1,0 +1,244 @@
+<mat-card style="margin-top: 30px;">
+    <form (ngSubmit)="applyFilter()"> <!-- Wrap in a form -->
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <!-- Status Dropdown -->
+            <mat-form-field appearance="outline">
+                <mat-label>Статус</mat-label>
+                <mat-select [(ngModel)]="selectedStatus" name="status">
+                    <mat-select-trigger>
+                        {{ selectedStatus ? statusTranslations[selectedStatus] : '-- Всички статуси --' }}
+                      </mat-select-trigger>                      
+                    <mat-option *ngFor="let status of statuses" [value]="status">
+                        {{ statusTranslations[status] }}
+                      </mat-option>                      
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Year Input -->
+            <mat-form-field appearance="outline">
+                <mat-label>Година</mat-label>
+                <input matInput type="number" [(ngModel)]="selectedYear" name="year" />
+            </mat-form-field>
+
+            <!-- Submit Button -->
+            <button mat-raised-button color="primary" style="margin-left: 10px; margin-bottom: 20px;" type="submit">
+                Търси
+            </button>
+        </div>
+    </form>
+</mat-card>
+
+<mat-card style="margin-top: 30px;">
+    <div style="display: flex; justify-content: space-between; padding: 16px;">
+      <div>
+        <h3 style="margin: 0;">Обща сума (неплатени):</h3>
+        <p style="font-weight: bold; font-size: 1.2em;">{{ totalUnpaidSum | number:'1.2-2' }} лв.</p>
+      </div>
+      <div>
+        <h3 style="margin: 0;">Обща сума (платени):</h3>
+        <p style="font-weight: bold; font-size: 1.2em;">{{ totalPaidSum | number:'1.2-2' }} лв.</p>
+      </div>
+    </div>
+  </mat-card>
+  
+
+<h2>Не платени резервации</h2>
+<!-- Table -->
+<table mat-table [dataSource]="reservationUnPaidDataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="reservationNumber">
+        <th mat-header-cell *matHeaderCellDef> № резервация </th>
+        <td mat-cell *matCellDef="let element"> {{ element.reservationNumber }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="reservationDate">
+        <th mat-header-cell *matHeaderCellDef> Дата на резервация</th>
+        <td mat-cell *matCellDef="let element"> {{ element.reservationDate | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clientFullName">
+        <th mat-header-cell *matHeaderCellDef> Имена </th>
+        <td mat-cell *matCellDef="let element"> {{ element.contractor.fullName }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clientEmail">
+        <th mat-header-cell *matHeaderCellDef> Ел.поща </th>
+        <td mat-cell *matCellDef="let element"> {{ element.contractor.email }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clientPhone">
+        <th mat-header-cell *matHeaderCellDef> Телефон </th>
+        <td mat-cell *matCellDef="let element"> {{ element.contractor.phone }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fromDate">
+        <th mat-header-cell *matHeaderCellDef> Резервирано от </th>
+        <td mat-cell *matCellDef="let element"> {{ element.fromDate | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="toDate">
+        <th mat-header-cell *matHeaderCellDef> Резервирано до </th>
+        <td mat-cell *matCellDef="let element"> {{ element.toDate | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Обща сума </th>
+        <td mat-cell *matCellDef="let element"> {{ element.price | number }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="paid">
+        <th mat-header-cell *matHeaderCellDef> Платено </th>
+        <td mat-cell *matCellDef="let element">
+            <!-- If this row is in edit mode, show input field -->
+            <ng-container *ngIf="editingId === element.id; else showPaid">
+                <input matInput type="number" [(ngModel)]="tempPaidValue" style="width: 80px;">
+                
+                <button mat-icon-button color="primary" (click)="confirmPaidUpdate(element)" style="margin-right: 10px;">
+                    <mat-icon>check</mat-icon>
+                </button>
+            
+                <button mat-icon-button color="warn" (click)="cancelPaidUpdate()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </ng-container>
+    
+            <!-- Default display -->
+            <ng-template #showPaid>
+                <span (click)="editPaid(element)" class="paid-value">
+                    {{ element.paid | number }}
+                </span>                
+            </ng-template>
+        </td>
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Статус </th>
+            <td mat-cell *matCellDef="let element"> 
+              {{ statusTranslations[element.status] }} 
+            </td>
+          </ng-container>
+    </ng-container>
+    
+
+<!-- Actions Column -->
+<ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Действие </th>
+    <td mat-cell *matCellDef="let element" style="display: flex; justify-content: center; align-items: center; min-width: 200px;">
+        <div style="display: flex; gap: 20px;">  
+            <!-- Show Confirm only for PENDING or REJECTED reservations -->
+            <button *ngIf="element.status === 'PENDING' || element.status === 'REJECTED'" 
+                    mat-stroked-button color="primary" 
+                    (click)="setConfirmed(element)">
+              <mat-icon>thumb_up</mat-icon> <span>Потвърди</span>
+            </button>
+          
+            <!-- Show Reject only for CONFIRMED reservations -->
+            <button *ngIf="element.status === 'CONFIRMED'" 
+                    mat-stroked-button color="warn" 
+                    (click)="setRejected(element)">
+              <mat-icon>thumb_down</mat-icon> <span>Откажи</span>
+            </button>
+          </div>
+          
+    </td>
+  </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<h2 style="margin-top: 300px;">Платени резервации</h2>
+<table mat-table [dataSource]="reservationPaidDataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="reservationNumber">
+        <th mat-header-cell *matHeaderCellDef> № резервация </th>
+        <td mat-cell *matCellDef="let element"> {{ element.reservationNumber }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="reservationDate">
+        <th mat-header-cell *matHeaderCellDef> Дата на резервация</th>
+        <td mat-cell *matCellDef="let element"> {{ element.reservationDate | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clientFullName">
+        <th mat-header-cell *matHeaderCellDef> Имена </th>
+        <td mat-cell *matCellDef="let element"> {{ element.contractor.fullName }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clientEmail">
+        <th mat-header-cell *matHeaderCellDef> Ел.поща </th>
+        <td mat-cell *matCellDef="let element"> {{ element.contractor.email }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clientPhone">
+        <th mat-header-cell *matHeaderCellDef> Телефон </th>
+        <td mat-cell *matCellDef="let element"> {{ element.contractor.phone }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fromDate">
+        <th mat-header-cell *matHeaderCellDef> Резервирано от </th>
+        <td mat-cell *matCellDef="let element"> {{ element.fromDate | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="toDate">
+        <th mat-header-cell *matHeaderCellDef> Резервирано до </th>
+        <td mat-cell *matCellDef="let element"> {{ element.toDate | date }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Обща сума </th>
+        <td mat-cell *matCellDef="let element"> {{ element.price | number }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="paid">
+        <th mat-header-cell *matHeaderCellDef> Платено </th>
+        <td mat-cell *matCellDef="let element">
+            <!-- If this row is in edit mode, show input field -->
+            <ng-container *ngIf="editingId === element.id; else showPaid">
+                <input matInput type="number" [(ngModel)]="tempPaidValue" style="width: 80px;">
+                
+                <button mat-icon-button color="primary" (click)="confirmPaidUpdate(element)" style="margin-right: 10px;">
+                    <mat-icon>check</mat-icon>
+                </button>
+            
+                <button mat-icon-button color="warn" (click)="cancelPaidUpdate()">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </ng-container>
+    
+            <!-- Default display -->
+            <ng-template #showPaid>
+                <span (click)="editPaid(element)" class="paid-value">
+                    {{ element.paid | number }}
+                </span>                
+            </ng-template>
+        </td>
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Статус </th>
+            <td mat-cell *matCellDef="let element"> 
+              {{ statusTranslations[element.status] }} 
+            </td>
+          </ng-container>
+    </ng-container>
+
+<!-- Actions Column -->
+<ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Действие </th>
+    <td mat-cell *matCellDef="let element" style="display: flex; justify-content: center; align-items: center; min-width: 200px;">
+        <div style="display: flex; gap: 20px;">  
+            <!-- Show Confirm only for PENDING or REJECTED reservations -->
+            <button *ngIf="element.status === 'PENDING' || element.status === 'REJECTED'" 
+                    mat-stroked-button color="primary" 
+                    (click)="setConfirmed(element)">
+              <mat-icon>thumb_up</mat-icon> <span>Потвърди</span>
+            </button>
+          
+            <!-- Show Reject only for CONFIRMED reservations -->
+            <button *ngIf="element.status === 'CONFIRMED'" 
+                    mat-stroked-button color="warn" 
+                    (click)="setRejected(element)">
+              <mat-icon>thumb_down</mat-icon> <span>Откажи</span>
+            </button>
+          </div>          
+    </td>
+  </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>

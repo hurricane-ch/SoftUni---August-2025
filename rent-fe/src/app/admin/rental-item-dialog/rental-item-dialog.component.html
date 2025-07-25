@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Добави обект</h2>
+
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="form">
+  <div class="mt-10">
+    <!-- Name -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Име</mat-label>
+      <input matInput formControlName="name" placeholder="Въведете име" />
+    </mat-form-field>
+
+    <!-- Dropdown for Rental Item Type -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Тип</mat-label>
+      <mat-select formControlName="rentalItemType">
+        <mat-option *ngFor="let type of rentalItemTypes" [value]="type">
+          {{ rentalItemTypeTranslations[type] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>    
+
+    <!-- Room -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Стаи</mat-label>
+      <input matInput type="number" formControlName="room" placeholder="Въведете брой стаи" />
+    </mat-form-field>
+
+    <!-- Price -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label>Цена</mat-label>
+      <input matInput type="number" formControlName="price" placeholder="Въведете цена" />
+    </mat-form-field>
+
+    <!-- Recommended Visitors -->
+    <mat-form-field appearance="outline" class="w-full">
+      <mat-label> Препоръчителен брой гости </mat-label>
+      <input matInput type="number" formControlName="recommendedVisitors" placeholder="Препоръчителен брой гости" />
+    </mat-form-field>
+  </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Отказ</button>
+  <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="form.invalid">Добави</button>
+</mat-dialog-actions>

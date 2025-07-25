@@ -1,0 +1,77 @@
+### POST login (Set access_token to the global variables)
+POST {{host}}/api/v0.0.1/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+username=admin&password=rent*2025
+
+> {%
+    client.test("Request executed successfully", function() {
+        if (response.status === 200) {
+            client.global.set("access_token", response.body["token"])
+            client.global.set("refresh_token", response.body["refreshToken"])
+        }
+        client.assert(response.status === 200, "Access is Denied");
+    });
+%}
+
+###  AuthController # createEmailVerificationCode
+POST {{host}}/api/v0.0.1/auth/create-email-verification-code
+Content-Type: application/json
+Accept-Language: bg
+
+{
+  "email": "krushev@atechtrade.org",
+  "phone": "+359888111222",
+  "fullName": "Стоян Тодоров Съчманлиев"
+}
+
+###  AuthController # confirmEmailVerificationCode
+PUT {{host}}/api/v0.0.1/auth/confirm-email-verification-code
+Content-Type: application/json
+
+{
+  "email": "krushev@atechtrade.org",
+  "token": "138855"
+}
+
+###  Reservation Controller # create
+POST {{host}}/api/v0.0.1/auth/reservations/rental-items/1
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+Accept-Language: bg
+
+{
+  "token": "118125",
+  "reservationDate": "2025-03-08",
+  "price": 250,
+  "paid": 100,
+  "fromDate": "2025-08-20",
+  "toDate": "2025-08-25",
+  "contractor" :
+  {
+    "email": "krushev@atechtrade.org"
+  }
+}
+
+###  Reservation Controller # create
+POST {{host}}/api/v0.0.1/reservations/rental-items/1
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+Accept-Language: bg
+
+{
+  "reservationDate": "2025-03-08",
+  "price": 250,
+  "paid": 100,
+  "fromDate": "2025-08-20",
+  "toDate": "2025-08-25",
+  "contractor" :
+  {
+    "email": "krushev@atechtrade.org"
+  }
+}
+
+###  Reservation Controller # get all by status and year
+GET {{host}}/api/v0.0.1/reservations/search?status=PENDING&year=2025
+Content-Type: application/json
+Authorization: Bearer {{access_token}}

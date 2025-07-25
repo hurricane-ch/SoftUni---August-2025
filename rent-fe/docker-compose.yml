@@ -1,0 +1,25 @@
+version: "3"
+services:
+  at-rent:
+    container_name: at-rent-fe
+    image: at-rent-fe:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - ANGULAR_PROFILES_ACTIVE=${ANGULAR_PROFILES_ACTIVE}
+    restart: always
+    volumes:
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+      - "/var/log/at-rent-fe:/var/log/nginx"
+    networks:
+      - net-at-rent
+    ports:
+      - "80:80"
+    extra_hosts:
+      - "at-rent-be-dev.atechtrade.org:10.10.0.91"
+      - "at-rent-be-stage.atechtrade.org:10.10.0.98"
+networks:
+  net-at-rent:
+    driver: bridge

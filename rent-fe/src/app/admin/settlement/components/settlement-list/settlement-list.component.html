@@ -1,0 +1,85 @@
+<!-- <div *ngIf="!settlements" class="animate-pulse">Loading settlements...</div> -->
+
+<div class="flex flex-col md:flex-row md:items-start mb-6 md:mb-0">
+  <!-- <mat-form-field appearance="fill">
+    <mat-label>Търсене</mat-label>
+    <mat-icon class="opacity-50" matPrefix>search</mat-icon>
+    <input matInput placeholder="Ex. en" #input />
+  </mat-form-field> -->
+  <mat-form-field class="example-full-width">
+    <mat-label>Град</mat-label>
+    <mat-icon class="opacity-50" matPrefix>search</mat-icon>
+    <input
+      (keyup.enter)="searchSettlements(settlementControl.value)"
+      type="text"
+      placeholder="Избор"
+      aria-label="Град"
+      matInput
+      [formControl]="settlementControl"
+    />
+  </mat-form-field>
+
+  <button
+    class="ml-6 mt-2"
+    mat-flat-button
+    color="primary"
+    (click)="searchSettlements(this.settlementControl.value)"
+  >
+    Търсене
+  </button>
+</div>
+
+<div *ngIf="settlements && !settlementsQuery">
+  <div class="">
+    <div class="p-2">Населени места</div>
+    <mat-card>
+      <mat-card-content>
+        <div *ngFor="let item of settlements" class="truncate">
+          <a
+            [routerLink]="['/app/settlement', item.id]"
+            class="hover:underline text-base"
+            [title]="item.name"
+          >
+            {{ item.name }}
+          </a>
+        </div>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions>
+        <button (click)="addSettlement()" mat-button>Add</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+
+<div *ngIf="settlementsQuery">
+  <div class="">
+    <div class="p-2">Населени места</div>
+    <mat-card>
+      <mat-card-content>
+        <div *ngFor="let item of settlementsQuery" class="truncate">
+          <a
+            [routerLink]="['/app/settlement', item.id]"
+            class="hover:underline text-base"
+            [title]="item.name"
+          >
+            {{
+              "гр." +
+                item.name +
+                ", " +
+                "обл." +
+                item.regionName +
+                ", " +
+                "общ." +
+                item.municipalityName
+            }}
+          </a>
+        </div>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions>
+        <button (click)="addSettlement()" mat-button>Add</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

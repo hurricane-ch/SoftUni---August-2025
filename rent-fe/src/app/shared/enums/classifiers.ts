@@ -1,0 +1,4 @@
+export enum Classifiers {
+  EDUCATION_QUALIFICATION_LEVEL = "0016000",
+  LANGUAGES = "0018000"
+}

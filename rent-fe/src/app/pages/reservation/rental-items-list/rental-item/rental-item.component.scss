@@ -1,0 +1,32 @@
+/* Force the overlay wrapper to take full screen and allow centering */
+.cdk-overlay-container {
+  pointer-events: none;
+}
+
+.cdk-global-overlay-wrapper {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Then style the actual snackbar */
+.absolute-center-snackbar {
+  background-color: #323232;
+  color: white;
+  font-size: 16px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  pointer-events: auto;
+  animation: fadeInScale 0.3s ease-out;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

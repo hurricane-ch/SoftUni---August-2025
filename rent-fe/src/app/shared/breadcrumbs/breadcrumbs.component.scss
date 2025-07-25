@@ -1,0 +1,43 @@
+.breadcrumb-dark {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+  gap: 0.3rem;
+
+  a {
+    color: rgb(238, 233, 233);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1rem;
+
+    &:not([href]):not([class]),
+    &:not([href]):not([class]):hover {
+      color: lightgray;
+    }
+  }
+}
+
+.breadcrumb-light {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 0.3rem;
+
+  a {
+    color: rgb(51, 47, 47);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1rem;
+
+    &:not([href]):not([class]),
+    &:not([href]):not([class]):hover {
+      color: lightgray;
+    }
+  }
+}
+
+.icon-text-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}

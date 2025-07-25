@@ -1,0 +1,104 @@
+### POST login (Set access_token to the global variables)
+POST {{host}}/api/v0.0.1/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+username=admin&password=admin
+
+> {%
+    client.test("Request executed successfully", function() {
+        if (response.status === 200) {
+            client.global.set("access_token", response.body["token"])
+            client.global.set("refresh_token", response.body["refreshToken"])
+        }
+        client.assert(response.status === 200, "Access is Denied");
+    });
+%}
+
+###  UserController # update
+POST {{host}}/api/v0.0.1/users
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "email": "test@xyz.com",
+  "fullName": "Кънчо Стойчев",
+  "username": "test",
+  "password": "test",
+  "identifier": "1122334455",
+  "enabled": true,
+  "branch": {
+    "id": 1
+  },
+  "roles": [
+    "ADMIN"
+  ]
+}
+
+###  UserController # getCurrentUser
+GET {{host}}/api/v0.0.1/users/1
+accept: */*
+Authorization: Bearer {{access_token}}
+
+###  UserController # findAll
+GET {{host}}/api/v0.0.1/users
+accept: */*
+Authorization: Bearer {{access_token}}
+
+###  UserController # findByUsername
+GET {{host}}/api/v0.0.1/users/username/admin
+accept: */*
+Authorization: Bearer {{access_token}}
+
+###  UserController # getCurrentUseraa d
+GET {{host}}/api/v0.0.1/users/me
+accept: */*
+Authorization: Bearer {{access_token}}
+
+###  UserController # search
+GET {{host}}/api/v0.0.1/users/search?q=ad
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+###  UserController # history
+GET {{host}}/api/v0.0.1/users/1/history
+accept: */*
+Authorization: Bearer {{access_token}}
+
+###  UserController # update
+PUT {{host}}/api/v0.0.1/users/1
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "fullName": "test 123 456",
+  "enabled": true,
+  "roles": [
+      "ADMIN"
+  ]
+}
+
+###  UserController # setEnabled
+PUT {{host}}/api/v0.0.1/users/1/true
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+###  UserController # roles
+GET {{host}}/api/v0.0.1/users/roles
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+###  AdminController # updateRoles
+PUT {{host}}/api/v0.0.1/users/1/roles
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+  ["ADMIN"]
+
+###  UserController # signout
+POST {{host}}/api/v0.0.1/users/signout
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "id": "1"
+}

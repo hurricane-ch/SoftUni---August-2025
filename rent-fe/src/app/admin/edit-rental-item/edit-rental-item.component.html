@@ -1,0 +1,71 @@
+<div class="main-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="flex justify-between items-center">
+      <h1 class="text-xl font-semibold">Edit Rental Item</h1>
+      <button
+        class="button-large m-2 text-end"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!form.valid"
+      >
+        Save
+      </button>
+    </div>
+
+    <mat-card class="section-card">
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Име</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="name"
+          placeholder="Въведете име"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Тип</mat-label>
+        <mat-select formControlName="rentalItemType">
+          <mat-option *ngFor="let type of rentalItemTypes" [value]="type">
+            {{ type }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="flex flex-row gap-4">
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Стаи</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="room"
+            placeholder="Въведете брой стаи"
+          />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="w-full">
+          <mat-label>Цена</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="price"
+            placeholder="Въведете цена"
+          />
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Препоръчителн брой гости</mat-label>
+        <input
+          matInput
+          type="number"
+          formControlName="recommendedVisitors"
+          placeholder="Enter Recommended Visitors Count"
+        />
+      </mat-form-field>
+    </mat-card>
+  </form>
+
+  <app-attached-files></app-attached-files>
+</div>

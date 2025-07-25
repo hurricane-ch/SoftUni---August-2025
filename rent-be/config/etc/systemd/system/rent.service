@@ -1,0 +1,14 @@
+[Unit]
+Description=At-Rent Backend Application
+After=network.target
+
+[Service]
+User=rent
+ExecStart=/usr/bin/java -jar /home/rent/rent-be.jar
+Restart=always
+Environment=SPRING_PROFILES_ACTIVE="postgres,postgres-dev,development,logging-logfile"
+Environment=JAVA_OPTS="-Xmx4096M -Xms2048M -XX:MaxPermSize=1024M -Djava.awt.headless=true"
+Environment=CATALINA_OPTS="-Xmx4096M -Xms2048M -XX:MaxPermSize=1024M -XX:+UseParallelGC -XX:MaxGCPauseMillis=1500 -XX:GCTimeRatio=9 -XX:+DisableExplicitGC -server"
+
+[Install]
+WantedBy=multi-user.target

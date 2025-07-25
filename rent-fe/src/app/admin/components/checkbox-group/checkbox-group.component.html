@@ -1,0 +1,8 @@
+@for (item of items; track $index) {
+<mat-checkbox
+  [checked]="item.checked"
+  (change)="onCheckboxChange(item, $event.checked)"
+>
+  {{ item.label }}
+</mat-checkbox>
+}

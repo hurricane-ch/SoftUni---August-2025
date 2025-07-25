@@ -1,0 +1,155 @@
+<div class="m-4">
+  <form [formGroup]="attachForm" (ngSubmit)="onSubmit()">
+    <div class="section-label mt-4 flex items-center">Зареждане на снимка</div>
+
+    <div class="flex flex-wrap gap-4 mt-4 mb-4">
+      <div class="flex flex-wrap">
+        <input
+          type="file"
+          class="hidden"
+          #fileInput
+          accept=".pdf, .doc, .docx, .txt, .xls, .xlsx, .csv, .odt, .jpg, .jpeg, .gif, .png, .bmp"
+          (input)="onSelectFile($event)"
+        />
+
+        <div class="flex flex-col">
+          <button
+            mat-raised-button
+            color="primary"
+            type="button"
+            (click)="fileInput.click()"
+          >
+            <mat-icon>add</mat-icon>Избери снимка
+          </button>
+
+          <a class="max-w-36">{{ attachForm.get("fileName")?.value }}</a>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-4 mt-4 mb-4 ml-auto">
+        <button
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="!attachForm.get('document')?.value"
+        >
+          <mat-icon>upload</mat-icon>Качване
+        </button>
+
+        <button
+          mat-raised-button
+          type="button"
+          [disabled]="!attachForm.get('document')?.value"
+          (click)="clearSearchFields()"
+          [color]="attachForm.get('document')?.value ? 'warn' : 'primary'"
+        >
+          <mat-icon class="align-middle">close</mat-icon>
+          <div>Отказ</div>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex flex-row gap-4">
+      <mat-form-field appearance="fill" class="w-full">
+        <mat-label>Описание</mat-label>
+        <input
+          type="text"
+          placeholder="Описание"
+          matInput
+          formControlName="description"
+        />
+      </mat-form-field>
+    </div>
+
+    <div class="mt-2">
+      <mat-checkbox formControlName="main"
+        >Направи снимката профилна</mat-checkbox
+      >
+    </div>
+  </form>
+
+  <div class="section-label flex items-center">Прикачени снимки</div>
+  <table mat-table [dataSource]="groupEventsListSource" class="mt-4 w-fit">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>Рег. Номер</th>
+      <td mat-cell *matCellDef="let element">{{ element?.id }}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Описание</th>
+      <td mat-cell *matCellDef="let element">{{ element?.description }}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="fileName">
+      <th mat-header-cell *matHeaderCellDef>Име на файл</th>
+      <td mat-cell *matCellDef="let element">{{ element?.fileName }}</td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="setMain">
+      <th mat-header-cell *matHeaderCellDef>Профилна снимка</th>
+      <td mat-cell *matCellDef="let element">
+        <button
+          mat-icon-button
+          color="primary"
+          *ngIf="!element.main"
+          (click)="setMain(element.id)"
+        >
+          <mat-icon aria-hidden="false" aria-label="Set as Main"
+            >thumb_up</mat-icon
+          >
+        </button>
+        <button
+          mat-icon-button
+          color="primary"
+          *ngIf="element.main"
+          (click)="setMain(element.id)"
+        >
+          <mat-icon aria-hidden="false" aria-label="Set as Main"
+            >check</mat-icon
+          >
+        </button>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="download">
+      <th mat-header-cell *matHeaderCellDef>Изтегли</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="downloadFile(element)">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Download"
+            fontIcon="download"
+            class="icon-display"
+          ></mat-icon>
+        </button>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Изтриване</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="delete(element.id)">
+          <mat-icon
+            aria-hidden="false"
+            aria-label="Delete"
+            fontIcon="delete"
+            class="icon-display"
+            color="warn"
+          ></mat-icon>
+        </button>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="8">Няма прикачени файлове</td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,29 @@
+<div class="filter-container">
+    <mat-form-field>
+      <input matInput placeholder="Year" [(ngModel)]="selectedYear">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="applyFilter()">Търси</button>
+  </div>
+  
+  <!-- Rental Items Table -->
+  <table class="rental-table">
+    <thead>
+      <tr>
+        <th>Име обект</th>
+        <th>Тип обект</th>
+        <th>Резервирани дати ( Юни - Септември )</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let group of groupedReservations">
+        <td>{{ group.rentalItemName }}</td>
+        <td>{{ rentalItemTypeTranslations[group.rentalItemType] }}</td>
+        <td>
+          <app-calendar
+            [restrictedRanges]="getReservationRanges(group.reservations)">
+          </app-calendar>
+        </td>        
+      </tr>
+    </tbody>
+  </table>
+  

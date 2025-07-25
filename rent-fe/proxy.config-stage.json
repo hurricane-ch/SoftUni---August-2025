@@ -1,0 +1,8 @@
+{
+  "/api/v0.0.1/*": {
+    "target": "http://at-rent-be-stage.atechtrade.org:8080",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}

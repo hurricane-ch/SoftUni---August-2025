@@ -1,0 +1,60 @@
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  DOCKER_IMAGE_NAME: rent-be
+
+# Cache Maven dependencies
+cache:
+  paths:
+    - .m2/repository
+
+build_job:
+  stage: build
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "stage"'
+  tags:
+    - $CI_COMMIT_BRANCH
+  script:
+    - ./mvnw clean -DskipTests=true -Dgit.branch="$(git rev-parse --abbrev-ref HEAD)" -Dgit.commit.id="$(git rev-parse HEAD)" -Dgit.commit.time="$(git log -1 --format=%ci)" package
+  artifacts:
+    paths:
+      - rent-resource/target/rent-be.jar  # Make the JAR available for the deploy job
+
+test_job:
+  stage: test
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "stage"'
+  tags:
+    - $CI_COMMIT_BRANCH
+  script:
+    - ./mvnw test
+
+deploy_job:
+  stage: deploy
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "develop"'
+      variables:
+        SPRING_PROFILES_ACTIVE: "postgres,postgres-dev,development,logging-logfile"
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      variables:
+        SPRING_PROFILES_ACTIVE: "postgres,postgres-prod,production,logging-logfile"
+    - if: '$CI_COMMIT_BRANCH == "stage"'
+      variables:
+        SPRING_PROFILES_ACTIVE: "postgres,postgres-stage,development,logging-logfile"
+  tags:
+    - $CI_COMMIT_BRANCH
+  script:
+    - echo "Deploying to the $CI_COMMIT_BRANCH environment..."
+    - sudo systemctl stop rent.service
+    - sudo rm /home/rent/rent-be.jar || true
+    - sudo cp rent-resource/target/rent-be.jar /home/rent
+    - sudo chmod +x /home/rent/rent-be.jar
+    - sudo chown rent:rent /home/rent/rent-be.jar
+    - sudo systemctl start rent.service
+#    - docker stop $DOCKER_IMAGE_NAME || true
+#    - docker rm -f $DOCKER_IMAGE_NAME || true
+#    - docker system prune -f
+#    - docker-compose up -d

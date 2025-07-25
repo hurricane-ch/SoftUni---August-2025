@@ -1,0 +1,98 @@
+<div class="header" style="display: flex; justify-content: space-between; align-items: center;">
+  <h2>Обекти</h2>
+  <button mat-raised-button color="primary" (click)="openAddDialog()">
+    <mat-icon>add</mat-icon> Добави обект
+  </button>
+</div>
+
+<h2>Активни обекти</h2>
+<table mat-table [dataSource]="rentalItemsEnabled" class="mat-elevation-z8 w-full">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Име </th>
+    <td mat-cell *matCellDef="let item"> {{ item.name }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="rentalItemType">
+    <th mat-header-cell *matHeaderCellDef> Тип </th>
+    <td mat-cell *matCellDef="let item"> {{ rentalItemTypeTranslations[item.rentalItemType] }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="room">
+    <th mat-header-cell *matHeaderCellDef> Стаи </th>
+    <td mat-cell *matCellDef="let item"> {{ item.room }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Цена </th>
+    <td mat-cell *matCellDef="let item"> {{ item.price }} лв. </td>
+  </ng-container>
+
+  <ng-container matColumnDef="recommendedVisitors">
+    <th mat-header-cell *matHeaderCellDef> Препоръчителен брой гости </th>
+    <td mat-cell *matCellDef="let item"> {{ item.recommendedVisitors }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Действия </th>
+    <td mat-cell *matCellDef="let item">
+      <button mat-icon-button color="primary" (click)="editItem(item)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteItem(item.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="disableItem(item.id)">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['name', 'rentalItemType', 'room', 'price', 'recommendedVisitors', 'actions']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['name', 'rentalItemType', 'room', 'price', 'recommendedVisitors', 'actions'];" (dblclick)="editItem(row)"></tr>
+</table>
+
+<h2 style="margin-top: 50px;">Не активни обекти</h2>
+<table mat-table [dataSource]="rentalItemsDisabled" class="mat-elevation-z8 w-full">
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Име </th>
+    <td mat-cell *matCellDef="let item"> {{ item.name }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="rentalItemType">
+    <th mat-header-cell *matHeaderCellDef> Тип </th>
+    <td mat-cell *matCellDef="let item"> {{ rentalItemTypeTranslations[item.rentalItemType] }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="room">
+    <th mat-header-cell *matHeaderCellDef> Стаи </th>
+    <td mat-cell *matCellDef="let item"> {{ item.room }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Цена </th>
+    <td mat-cell *matCellDef="let item"> {{ item.price }} лв. </td>
+  </ng-container>
+
+  <ng-container matColumnDef="recommendedVisitors">
+    <th mat-header-cell *matHeaderCellDef> Препоръчителен брой гости </th>
+    <td mat-cell *matCellDef="let item"> {{ item.recommendedVisitors }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Действия </th>
+    <td mat-cell *matCellDef="let item">
+      <button mat-icon-button color="primary" (click)="editItem(item)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteItem(item.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+      <button mat-icon-button color="accent" (click)="enableItem(item.id)">
+        <mat-icon>check_circle</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['name', 'rentalItemType', 'room', 'price', 'recommendedVisitors', 'actions']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['name', 'rentalItemType', 'room', 'price', 'recommendedVisitors', 'actions'];"></tr>
+</table>

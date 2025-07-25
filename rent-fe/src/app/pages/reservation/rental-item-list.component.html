@@ -1,0 +1,22 @@
+<app-navbar />
+
+<main>
+  <div
+    class="relative min-h-screen bg-center bg-cover bg-[url(/assets/images/start-page1.jpg)]"
+  >
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black opacity-40"></div>
+
+    <!-- Title -->
+    <div class="relative z-10 text-center pt-24">
+      <h1 class="text-white font-semibold text-5xl">Резервация</h1>
+    </div>
+
+    <!-- Content -->
+    <div class="relative z-10 container mx-auto px-4 py-10">
+      <section>
+        <app-rental-items-list />
+      </section>
+    </div>
+  </div>
+</main>

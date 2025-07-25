@@ -1,0 +1,36 @@
+.rental-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; // important to enforce column widths
+
+  th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    vertical-align: top;
+    text-align: left;
+  }
+
+  th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 10%;
+  }
+
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 10%;
+  }
+
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 80%;
+  }
+
+  app-calendar {
+    display: block;
+  }
+}

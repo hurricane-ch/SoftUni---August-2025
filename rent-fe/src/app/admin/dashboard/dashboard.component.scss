@@ -1,0 +1,41 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Creates 4 equal columns */
+  grid-auto-rows: 150px; /* Sets a uniform height for each row */
+  gap: 20px; /* Spacing between rows and columns */
+  margin: auto;
+  max-width: 900px; /* Restrict the maximum width of the grid */
+}
+
+.row {
+  display: contents;
+}
+
+.icon-container {
+  width: 200px;
+  height: 150px;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centers elements vertically */
+  align-items: center; /* Centers elements horizontally */
+  border: 1px solid #b4a7a7;
+  border-radius: 8px;
+  text-align: center; /* Ensure text is centered */
+  box-sizing: border-box; /* Ensures padding/border doesn’t break layout */
+}
+
+button.mat-icon-button {
+  color: #000;
+}
+
+.dashboard-span {
+  font-size: 16px;
+  font-weight: 500;
+  color: #467452;
+  text-align: center;
+}
+
+.last-row {
+  grid-column: span 4; /* Makes the item span across all 4 columns */
+}

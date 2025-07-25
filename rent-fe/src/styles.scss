@@ -1,0 +1,351 @@
+@charset "UTF-8";
+
+@use "@angular/material" as mat;
+@use "sass:map";
+@use "sass:color";
+
+@import 'tailwindcss';
+
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+$my-green: (
+  50: #367d48,
+  100: #367d48,
+  200: #367d48,
+  300: #367d48,
+  400: #367d48,
+  500: #367d48,
+  600: #367d48,
+  700: #367d48,
+  800: #367d48,
+  900: #367d48,
+  A100: #367d48,
+  A200: #367d48,
+  A400: #367d48,
+  A700: #367d48,
+  contrast: (
+    50: white,
+    100: white,
+    200: white,
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white,
+    A100: white,
+    A200: white,
+    A400: white,
+    A700: white
+  )
+);
+
+$typography: mat.m2-define-legacy-typography-config(
+  $font-family: 'Noto Sans'
+);
+
+$at-rent-fe-primary: mat.m2-define-palette($my-green, 900);
+$at-rent-fe-accent: mat.m2-define-palette($my-green, 900);
+$at-rent-fe-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$at-rent-fe-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $at-rent-fe-primary,
+      accent: $at-rent-fe-accent,
+      warn: $at-rent-fe-warn,
+      text-color: #367d48
+    )
+  )
+);
+
+@include mat.all-component-typographies($typography);
+@include mat.elevation-classes();
+@include mat.app-background();
+@include mat.all-component-themes($at-rent-fe-theme);
+
+// Light theme mat-label color fix
+body:not(.dark) .mat-mdc-form-field .mat-mdc-floating-label {
+  color: black !important;
+}
+
+body:not(.dark)
+  .mdc-text-field--filled.mdc-text-field--disabled
+  .mdc-text-field__input,
+.mat-mdc-form-field.mat-mdc-form-field-disabled .mat-mdc-input-element {
+  opacity: 0.9 !important;
+  color: rgba(0, 0, 0, 0.9) !important;
+}
+
+.mdc-text-field--filled.mdc-text-field--disabled .mdc-text-field__input,
+.mat-mdc-form-field.mat-mdc-form-field-disabled .mat-mdc-input-element {
+  opacity: 0.9 !important;
+  color: rgba(240, 233, 233, 0.9) !important;
+}
+
+.dark {
+  $at-rent-fe-primary-dark: mat.m2-define-palette($my-green, 900);
+  $at-rent-fe-accent-dark: mat.m2-define-palette($my-green, 900);
+  $at-rent-fe-warn-dark: mat.m2-define-palette(mat.$m2-red-palette);
+
+  $at-rent-fe-theme-dark: mat.m2-define-dark-theme(
+    (
+      color: (
+        primary: $at-rent-fe-primary-dark,
+        accent: $at-rent-fe-accent-dark,
+        warn: $at-rent-fe-warn-dark
+      )
+    )
+  );
+  .mat-mdc-card {
+    background: #424242;
+    color: #fff;
+  }
+
+  .section-label {
+    background-color: #ae9e9e;
+  }
+
+  .mat-mdc-card-actions {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mat-mdc-dialog-container {
+    color: #fff;
+  }
+
+  @include mat.all-component-colors($at-rent-fe-theme-dark);
+
+  --mat-standard-button-toggle-background-color: #424242;
+  --mat-standard-button-toggle-selected-state-background-color: #367d48;
+}
+
+:root {
+  --mat-standard-button-toggle-background-color: #367d48;
+  --mat-standard-button-toggle-text-color: #fff;
+  --mat-standard-button-toggle-selected-state-background-color: #fff;
+  --mat-standard-button-toggle-selected-state-text-color: #367d48;
+}
+
+body:not(.dark) .section-label {
+  height: 35px;
+  width: 100%; /* Takes the entire width of the row */
+  margin: 10px 0;
+  background-color: #424242; /* Sets a light gray background */
+  color: white;
+  padding: 10px; /* Adds some padding inside the element */
+  text-align: left; /* Centers the text horizontally */
+  font-size: 16px; /* Sets font size */
+  font-weight: bold; /* Makes the text bold */
+  border-radius: 5px; /* Rounds the corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+.section-label {
+  height: 35px;
+  width: 100%; /* Takes the entire width of the row */
+  margin: 10px 0;
+  background-color: #756b6b; /* Sets a light gray background */
+  padding: 10px; /* Adds some padding inside the element */
+  text-align: left; /* Centers the text horizontally */
+  font-size: 16px; /* Sets font size */
+  font-weight: bold; /* Makes the text bold */
+  border-radius: 5px; /* Rounds the corners */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.login-page-bg {
+  background-image: url("assets/images/shutterstock_401240461_optimized__1_.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.login-page-bg::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(8px);
+}
+
+.custom-dialog-container .mat-dialog-container {
+  max-height: fit-content;
+  width: 90vw;
+  height: 90vh;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  padding: 24px;
+
+}
+
+.mat-mdc-text-field-wrapper {
+  flex: none !important;
+}
+
+button {
+  $height: 40px;
+  $width: 120px;
+  $large-size-icon: 48px;
+
+  &.button-large {
+    width: $width;
+    height: $height;
+    line-height: $height;
+    .mat-icon {
+      font-size: $large-size-icon;
+      width: $large-size-icon;
+      height: $large-size-icon;
+      line-height: $large-size-icon;
+    }
+    .mat-button-ripple {
+      font-size: inherit;
+      width: inherit;
+      height: inherit;
+      line-height: inherit;
+    }
+  }
+
+  &.button-fit-content {
+    width: fit-content;
+    height: $height;
+  }
+
+  $small-size-button: 60px;
+  $small-size-icon: 20px;
+
+  &.button-small {
+    width: $small-size-button;
+    height: $small-size-button;
+    line-height: $small-size-button;
+    .mat-icon {
+      font-size: $small-size-icon;
+      width: $small-size-icon;
+      height: $small-size-icon;
+      line-height: $small-size-icon;
+    }
+    .mat-button-ripple {
+      font-size: inherit;
+      width: inherit;
+      height: inherit;
+      line-height: inherit;
+    }
+  }
+
+  &.stepper-btn {
+    width: 125px;
+    height: 50px;
+    float: right;
+  }
+
+  &.stepper-btn-left {
+    width: 125px;
+    height: 50px;
+    float: left;
+  }
+
+  &.stepper-huge-btn {
+    width: 335px;
+    height: 50px;
+    margin: 20px;
+  }
+
+  &.stepper-huge-btn-right {
+    width: 335px;
+    height: 50px;
+    margin: 20px;
+    float: right;
+  }
+}
+
+mat-stepper {
+  &.short-line {
+    .mat-stepper-horizontal-line {
+      flex: none;
+      min-width: 140px;
+    }
+    .mat-step-icon {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}
+
+.mat-mdc-menu-panel {
+  &.nav-menu {
+    width: 150px;
+    height: fit-content;
+  }
+}
+
+.mat-mdc-form-field {
+  &.full-width {
+    width: 65vw;
+  }
+}
+
+.mdc-icon-button {
+  &.dashboard-icon {
+    width: 100px;
+    height: 100px;
+    color: #467452;
+    .mat-icon {
+      font-size: 74px;
+      width: 74px;
+      height: 74px;
+    }
+  }
+}
+
+.mat-step {
+  &.hide {
+    display: none;
+  }
+  &.show {
+    display: block;
+  }
+}
+
+
+.table {
+  width: 98%;
+  margin: auto;
+  margin-bottom: 10px;
+}
+
+pre {
+  font-family: "Noto Sans";
+}
+
+.mdc-notched-outline__notch {
+  border-right: none !important;
+}
+
+.mat-autocomplete-panel {
+  transition: opacity 0.3s ease-in-out;
+  opacity: 1;
+}
+
+.mat-autocomplete-panel.ng-hide {
+  opacity: 0;
+}
+
+.mat-mdc-tab.mdc-tab {
+  font-size: 20px;
+  background-color: #f0e6e6;
+}

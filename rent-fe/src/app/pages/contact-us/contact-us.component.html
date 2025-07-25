@@ -1,0 +1,79 @@
+<app-navbar></app-navbar>
+<main>
+  <div
+    class="relative pt-16 pb-32 flex content-center items-center justify-center"
+    style="min-height: 80h"
+  >
+    <div
+      class="absolute top-0 w-full h-full bg-center bg-cover"
+      style="background-image: url(&quot;./assets/images/start-page1.jpg&quot;)"
+    >
+      <span
+        id="blackOverlay"
+        class="w-full h-full absolute opacity-40 bg-black"
+      ></span>
+    </div>
+    <div class="container relative mx-auto">
+        <section class="pt-20 pb-48">
+          <div class="container mx-auto px-4">
+            <mat-card>
+              <mat-card-header>
+                <mat-card-title>{{ rentalHolder?.name }}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>Ако имате въпроси, Не се колебайте да се свържете с нас.</p>
+                <mat-list>
+                  <mat-list-item>
+                    <mat-icon>event</mat-icon>
+                    <span
+                      >Откриване на сезона: {{ rentalHolder?.openDate }}</span
+                    >
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-icon>event_busy</mat-icon>
+                    <span>Край на сезона: {{ rentalHolder?.closeDate }}</span>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-icon>email</mat-icon>
+                    <span
+                      >Електронна поща:
+                      <a href="mailto:{{ rentalHolder?.email }}">{{
+                        rentalHolder?.email
+                      }}</a></span
+                    >
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-icon>phone</mat-icon>
+                    <span
+                      >Телефон:
+                      <a href="tel:{{ rentalHolder?.phone }}">{{
+                        rentalHolder?.phone
+                      }}</a></span
+                    >
+                  </mat-list-item>
+                  <mat-list-item>
+                    <mat-icon>location_on</mat-icon>
+                    <span>Адрес: {{ rentalHolder?.address }}</span>
+                  </mat-list-item>
+                </mat-list>
+
+                <div style="height: 800px; width: 100%; margin-top: 15px">
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1279.047208056343!2d27.9247248362628!3d42.10025706531758!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40a127ef6388bca1%3A0x11d4e28b18af761a!2z0JHRg9C90LPQsNC70LAgItCg0LDRj9GCIiB8INCR0YPQvdCz0LDQu9CwIHwg0JrRitC80L_QuNC90LMgfCDQn9C70LDQtiB8INCh0L7QsdGB0YLQstC10L0g0L_QsNGA0LrQuNC90LM!5e0!3m2!1sbg!2sbg!4v1741591621524!5m2!1sbg!2sbg"
+                    width="100%"
+                    height="100%"
+                    style="border: 0"
+                    allowfullscreen
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                  >
+                  </iframe>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </section>
+      </div>
+    </div>
+
+</main>

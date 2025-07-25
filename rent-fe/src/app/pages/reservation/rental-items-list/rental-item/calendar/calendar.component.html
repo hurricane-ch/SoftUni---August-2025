@@ -1,0 +1,76 @@
+<!-- <p>Selected dates list: {{ selectedDates | json }}</p> -->
+
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+  <mat-card class="p-4">
+    <div class="text-lg text-center font-bold mb-4">Юни</div>
+
+    <mat-calendar
+      #juneCalendar
+      (selectedChange)="onDateChange($event)"
+      [dateClass]="dateClass"
+      [dateFilter]="dateFilter"
+      [startAt]="juneStart"
+    >
+    </mat-calendar>
+  </mat-card>
+
+  <mat-card class="p-4">
+    <div class="text-lg text-center font-bold mb-4">Юли</div>
+
+    <mat-calendar
+      #julyCalendar
+      (selectedChange)="onDateChange($event)"
+      [dateClass]="dateClass"
+      [dateFilter]="dateFilter"
+      [startAt]="julyStart"
+    >
+    </mat-calendar>
+  </mat-card>
+
+  <mat-card class="p-4">
+    <div class="text-lg text-center font-bold mb-4">Август</div>
+
+    <mat-calendar
+      #augustCalendar
+      (selectedChange)="onDateChange($event)"
+      [dateClass]="dateClass"
+      [dateFilter]="dateFilter"
+      [startAt]="augustStart"
+    >
+    </mat-calendar>
+  </mat-card>
+
+  <mat-card class="p-4">
+    <div class="text-lg text-center font-bold mb-4">Септември</div>
+
+    <mat-calendar
+      #septemberCalendar
+      (selectedChange)="onDateChange($event)"
+      [dateClass]="dateClass"
+      [dateFilter]="dateFilter"
+      [startAt]="septemberStart"
+    >
+    </mat-calendar>
+  </mat-card>
+</div>
+
+@if (errorMessage) {
+  <div
+    class="absolute top-5 right-5 fixed z-50 flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
+    role="alert"
+  >
+    <svg
+      class="shrink-0 inline w-4 h-4 me-3"
+      aria-hidden="true"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+    >
+      <path
+        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+      />
+    </svg>
+    <span class="sr-only">Info</span>
+    <div>{{ errorMessage }}</div>
+  </div>
+}
