@@ -118,5 +118,3 @@ rent-project/
 ├── README.md
 └── ...
 ```
-
----
