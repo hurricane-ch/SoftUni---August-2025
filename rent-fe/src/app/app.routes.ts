@@ -2,7 +2,6 @@ import { Routes } from "@angular/router";
 import { PageNotFoundComponent } from "./admin/components/page-not-found/page-not-found.component";
 import { AuthGuard } from "./guards/auth.guard";
 import { LandingComponent } from "./pages/landing/landing.component";
-import { AboutUsComponent } from "./pages/about-us/about-us.component";
 import { ContactUsComponent } from "./pages/contact-us/contact-us.component";
 import { EntertainmentComponent } from "./pages/entertainment/entertainment.component";
 import { RentalItemListComponent } from "./pages/reservation/rental-item-list.component";
@@ -14,10 +13,6 @@ export const routes: Routes = [
   {
     path: "",
     component: LandingComponent,
-  },
-  {
-    path: "about-us",
-    component: AboutUsComponent,
   },
   {
     path: "entertainment",
