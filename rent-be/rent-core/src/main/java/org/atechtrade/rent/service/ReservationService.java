@@ -68,8 +68,8 @@ public class ReservationService {
         }
 
         Contractor contractor = new Contractor();
-        if(dto.getContractor().getEmail() != null) {
-             contractor = contractorRepository.findByEmail(dto.getContractor().getEmail()).orElse(null);
+        if (dto.getContractor().getEmail() != null) {
+            contractor = contractorRepository.findByEmail(dto.getContractor().getEmail()).orElse(null);
         }
         if (contractor == null) {
             contractor = new Contractor();
@@ -99,7 +99,7 @@ public class ReservationService {
         RentalItem rentalItem = rentalItemService.findById(rentalItemId);
 
         Contractor contractor = new Contractor();
-        if(dto.getContractor().getEmail() != null) {
+        if (dto.getContractor().getEmail() != null) {
             contractor = contractorRepository.findByEmail(dto.getContractor().getEmail()).orElse(null);
         }
         if (contractor == null) {
@@ -114,14 +114,15 @@ public class ReservationService {
         BeanUtils.copyProperties(dto, reservation, "id");
 
         reservation.setReservationNumber(generateUniqueReservationNumber());
-        reservation.setStatus(ReservationStatus.CONFIRMED);
+        reservation.setStatus(ReservationStatus.PENDING);
         reservation.setRentalItem(rentalItem);
         rentalItem.getReservations().add(reservation);
         reservation.setContractor(contractor);
 
+
         reservation = repository.save(reservation);
 
-        return reservation;
+        return confirm(reservation.getId(), language);
     }
 
     @Transactional
