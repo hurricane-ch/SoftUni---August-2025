@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.atechtrade.rent.enums.RentalItemType;
 import org.atechtrade.rent.exception.ErrorObject;
 import org.atechtrade.rent.exception.LibraryImportException;
+import org.atechtrade.rent.model.File;
 import org.atechtrade.rent.model.Language;
 import org.atechtrade.rent.model.MessageResource;
 import org.atechtrade.rent.model.RentalHolder;
@@ -14,6 +15,7 @@ import org.atechtrade.rent.model.RentalItem;
 import org.atechtrade.rent.model.Role;
 import org.atechtrade.rent.model.Setting;
 import org.atechtrade.rent.model.User;
+import org.atechtrade.rent.repository.FileStoreRepository;
 import org.atechtrade.rent.repository.LanguageRepository;
 import org.atechtrade.rent.repository.MessageResourceRepository;
 import org.atechtrade.rent.repository.RentalHolderRepository;
@@ -48,6 +50,7 @@ public class BootstrapService {
     private final SettingRepository settingRepository;
     private final RentalHolderRepository rentalHolderRepository;
     private final RentalItemRepository rentalItemRepository;
+    private final FileStoreRepository fileStoreRepository;
 
     @Value("${rent.bootstrap.message-resource-library:message-resource-library.tsv}")
     private String messageResourceLibrary;
@@ -103,6 +106,17 @@ public class BootstrapService {
             item.setPrice(200.00);
             item.setRecommendedVisitors(4);
             item.setRoom(2);
+
+            File picture = File.builder()
+                    .createdBy("anonymousUser")
+                    .contentType("image/jpeg")
+                    .description("Профилна снимка")
+                    .fileName("IMG_3211.jpg")
+                    .filePath("/home/niki/IdeaProjects/SoftUni - August 2025/rent-be/rent-resource/src/picture/IMG_3211.jpg")
+                    .main(true)
+                    .build();
+
+            item.getFiles().add(picture);
 
             rentalItemRepository.save(item);
         }
