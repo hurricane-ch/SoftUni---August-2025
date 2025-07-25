@@ -85,14 +85,14 @@ export class ReservationDialogComponent implements OnInit {
 
     this.form = this.fb.group({
       price: [totalPrice, [Validators.required, Validators.min(0)]],
-      fullName: [null],
+      fullName: [null,Validators.required],
       phone: [
         null,
-        [Validators.pattern(/^\+?\d[\d\s]*$/)],
+        [Validators.required,Validators.pattern(/^\+?\d[\d\s]*$/)],
       ],
       email: [
         null,
-        [Validators.pattern(/^[^@]+@[^@]+\.[^@]+$/)],
+        [Validators.required,Validators.pattern(/^[^@]+@[^@]+\.[^@]+$/)],
       ],
       fromDate: [{ value: selectedDates?.[0] || null, disabled: true }],
       toDate: [
@@ -106,10 +106,9 @@ export class ReservationDialogComponent implements OnInit {
 
   onCancel(): void {
     this.dialogRef.close();
-    this.router.navigate(["/"]);
+    this.router.navigate(["/admin/custom-reservation"]);
   }
 
-  // TODO not needed. Refactor me. Use MomentDateAdapter
   getFormattedDate(date: string | Date): string {
     const locale = DEFAULT_LOCALE;
     const day = formatDate(date, "EEEE", locale);
@@ -142,7 +141,6 @@ export class ReservationDialogComponent implements OnInit {
         status: "PENDING",
         fromDate: new Date(formValues.fromDate).toISOString(),
         toDate: new Date(formValues.toDate).toISOString(),
-        termsAccepted: formValues.termsAccepted,
         contractor: {
           fullName: formValues.fullName,
           entityType: "PHYSICAL",

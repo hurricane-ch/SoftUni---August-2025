@@ -115,7 +115,6 @@ export class RentalItemComponent implements OnInit {
   }
 }
 
-
   openAddDialog(): void {
     const selectedDates = this.calendarComponent.selectedDates;
     const pricePerDay = this.rentalItem?.price || 0;
@@ -142,7 +141,7 @@ export class RentalItemComponent implements OnInit {
         );
 
         setTimeout(() => {
-          this.router.navigate(["/"]);
+          this.router.navigate(["/admin/custom-reservation"]);
         }, 11000);
       }
     });
