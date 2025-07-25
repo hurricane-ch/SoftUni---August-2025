@@ -75,11 +75,9 @@ public class ReservationService {
             contractor = new Contractor();
             BeanUtils.copyProperties(dto.getContractor(), contractor, "id");
             contractor.setMarketingTarget(true);
+            contractor.setEnabled(true);
+            contractorRepository.save(contractor);
         }
-
-        contractor.setEnabled(true);
-
-        contractorRepository.save(contractor);
 
         RentalItem rentalItem = rentalItemService.findById(rentalItemId);
         Reservation reservation = new Reservation();
@@ -99,6 +97,19 @@ public class ReservationService {
     @Transactional
     public Reservation createAdminReservation(final Long rentalItemId, final ReservationDTO dto, final String language) {
         RentalItem rentalItem = rentalItemService.findById(rentalItemId);
+
+        Contractor contractor = new Contractor();
+        if(dto.getContractor().getEmail() != null) {
+            contractor = contractorRepository.findByEmail(dto.getContractor().getEmail()).orElse(null);
+        }
+        if (contractor == null) {
+            contractor = new Contractor();
+            BeanUtils.copyProperties(dto.getContractor(), contractor, "id");
+            contractor.setMarketingTarget(true);
+            contractor.setEnabled(true);
+            contractorRepository.save(contractor);
+        }
+
         Reservation reservation = new Reservation();
         BeanUtils.copyProperties(dto, reservation, "id");
 
@@ -106,6 +117,7 @@ public class ReservationService {
         reservation.setStatus(ReservationStatus.CONFIRMED);
         reservation.setRentalItem(rentalItem);
         rentalItem.getReservations().add(reservation);
+        reservation.setContractor(contractor);
 
         reservation = repository.save(reservation);
 
