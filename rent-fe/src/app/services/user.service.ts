@@ -179,4 +179,15 @@ export class UserService {
       body
     );
   }
+
+isCurrentUserAdmin(): Observable<boolean> {
+  return this.getCurrentUser().pipe(
+    map((user) => {
+      return user.roles?.includes("ROLE_ADMIN");
+    }),
+    tap({
+      error: (err) => console.error("Failed to check admin role", err)
+    })
+  );
+}
 }
