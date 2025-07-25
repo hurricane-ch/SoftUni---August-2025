@@ -97,6 +97,22 @@ public class ReservationService {
     }
 
     @Transactional
+    public Reservation createAdminReservation(final Long rentalItemId, final ReservationDTO dto, final String language) {
+        RentalItem rentalItem = rentalItemService.findById(rentalItemId);
+        Reservation reservation = new Reservation();
+        BeanUtils.copyProperties(dto, reservation, "id");
+
+        reservation.setReservationNumber(generateUniqueReservationNumber());
+        reservation.setStatus(ReservationStatus.CONFIRMED);
+        reservation.setRentalItem(rentalItem);
+        rentalItem.getReservations().add(reservation);
+
+        reservation = repository.save(reservation);
+
+        return reservation;
+    }
+
+    @Transactional
     public Reservation update(final Long id, final ReservationDTO dto) {
         if (!CommonUtils.isValidId(id)) {
             throw new IllegalArgumentException("Path variable id is not valid");

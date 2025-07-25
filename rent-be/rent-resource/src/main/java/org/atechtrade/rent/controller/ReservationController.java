@@ -76,6 +76,17 @@ public class ReservationController {
         return ApiResponse.ok(format(Constants.SUCCESS_MSG, HttpMethod.POST), service.create(rentalItemId, dto, language));
     }
 
+    @PostMapping("/admin/rental-items/{rentalItemId}")
+    @Secured({RolesConstants.ROLE_ADMIN, RolesConstants.ROLE_EXPERT})
+    @Parameter(in = ParameterIn.HEADER, name = HttpHeaders.ACCEPT_LANGUAGE, required = true, example = Language.BG)
+    public ApiResponse createAdminReservation(@PathVariable final Long rentalItemId,
+                              @RequestBody @Valid @NonNull final ReservationDTO dto,
+                              @RequestHeader(HttpHeaders.ACCEPT_LANGUAGE) final Locale locale
+    ) {
+        String language = CommonUtils.getLanguage(locale);
+        return ApiResponse.ok(format(Constants.SUCCESS_MSG, HttpMethod.POST), service.createAdminReservation(rentalItemId, dto, language));
+    }
+
     @PutMapping("/{id}")
     @Secured(RolesConstants.ROLE_ADMIN)
     public ApiResponse update(@PathVariable final Long id,
