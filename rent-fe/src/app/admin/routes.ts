@@ -11,6 +11,11 @@ export const routes: Routes = [
                 loadComponent: () =>
                     import("./dashboard/dashboard.component").then(m => m.DashboardComponent),
             },
+                        {
+                path: 'custom-reservation',
+                loadComponent: () =>
+                    import("./custom-reservation/custom-reservation.component").then(m => m.CustomReservationComponent),
+            },
             {
                 path: "dashboard",
                 loadComponent: () =>

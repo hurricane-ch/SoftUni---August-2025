@@ -30,6 +30,12 @@
         </button>
         <span class="dashboard-span"> Резервации обобщено </span>
       </div>
+      <div class="icon-container" [routerLink]="['/reservation']">
+        <button mat-icon-button class="dashboard-icon">
+          <mat-icon>edit_calendar</mat-icon>
+        </button>
+        <span class="dashboard-span"> Персонална резервация </span>
+      </div>
     </div>
   </div>
 </div>
@@ -56,7 +62,7 @@
             </div>
             <div>
               <div class="text-gray-400">Time:</div>
-              {{ backendBuildInfo.time | date : "medium" }}
+              {{ backendBuildInfo.time | date: "medium" }}
             </div>
             <div>
               <div class="text-gray-400">Commit ID:</div>
@@ -64,7 +70,7 @@
             </div>
             <div>
               <div class="text-gray-400">Commit Time:</div>
-              {{ backendBuildInfo.gitCommitTime | date : "medium" }}
+              {{ backendBuildInfo.gitCommitTime | date: "medium" }}
             </div>
           </div>
         </mat-card-content>
@@ -91,7 +97,7 @@
             </div>
             <div>
               <div class="text-gray-400">Time:</div>
-              {{ frontendBuildInfo.timestamp | date : "medium" }}
+              {{ frontendBuildInfo.timestamp | date: "medium" }}
             </div>
           </div>
         </mat-card-content>
