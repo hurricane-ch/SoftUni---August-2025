@@ -36,7 +36,7 @@ export class RentalItemService {
 
     createAdminReservation(body: any, id: Number): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(
-      `${environment.apiUrl}/api/v0.0.1/auth/reservations/ad/rental-items/${id}`,
+      `${environment.apiUrl}/api/v0.0.1/reservations/admin/rental-items/${id}`,
       body,
     );
   }
