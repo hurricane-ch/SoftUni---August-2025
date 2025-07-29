@@ -7,11 +7,12 @@ import { ActivatedRoute } from '@angular/router';
 import { ContactUsService } from './services/contact-us-service';
 import { RentalHolder } from '../../shared/interfaces/rental-holder';
 import {NavbarComponent} from "../../components/navbar/navbar.component";
+import { FooterComponent } from "src/app/components/footer/footer.component";
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatIconModule, MatListModule, NavbarComponent],
+  imports: [CommonModule, MatCardModule, MatIconModule, MatListModule, NavbarComponent, FooterComponent],
   templateUrl: './contact-us.component.html',
   styleUrl: './contact-us.component.scss',
 })

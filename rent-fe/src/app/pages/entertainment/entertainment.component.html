@@ -1,27 +1,33 @@
-<app-navbar></app-navbar>
+<app-navbar />
 
-<main
-  class="relative flex items-center justify-center"
-  style="
-    min-height: 100vh;
-    background-image: url(&quot;./assets/images/start-page1.jpg&quot;);
-    background-size: cover;
-    background-position: center;
-  "
->
-  <span class="absolute inset-0 bg-black opacity-40"></span>
+<main>
+  <div class="h-[500px] relative">
+    <img
+      src="./assets/images/start-page.png"
+      class="w-full h-full object-cover"
+      alt=""
+    />
+    <div
+      class="bg-linear-to-b from-60% from-white/10 to-white absolute inset-0"
+    ></div>
+  </div>
 
-  <div class="container relative z-10 text-center px-4">
-    <div class="mt-12 text-left">
-      <h2 class="text-2xl text-white/90 font-semibold mb-4">
-        🎉 Забавления и активности в района
-      </h2>
-      <p class="text-white/90 leading-relaxed mb-4">
-        Ахтопол и околностите предлагат богато разнообразие от възможности за
-        развлечения и приключения както за малки, така и за големи. Насладете се
-        на комбинацията от морски чар, културно наследство и природни чудеса.
-      </p>
-      <ul class="list-disc list-inside space-y-2 text-white/90">
+  <div class="mx-auto pb-26 max-w-5xl px-4">
+    <h1 class="text-5xl/14 md:text-6xl/18 mb-16 text-gray-800">
+      🎉
+      <span class="font-bold text-blue-500"
+        >Забавления <br />и активности в района 🚴
+      </span>
+    </h1>
+
+    <p class="text-2xl mb-12 text-gray-800">
+      Ахтопол и околностите предлагат богато разнообразие от възможности за
+      развлечения и приключения както за малки, така и за големи. Насладете се
+      на комбинацията от морски чар, културно наследство и природни чудеса.
+    </p>
+
+    <div class="grid grid-cols-1">
+      <ul class="list-disc space-y-4 pl-5">
         <li>
           🚤 Разходки с лодка до устието на река Велека или по крайбрежието
         </li>
@@ -37,3 +43,5 @@
     </div>
   </div>
 </main>
+
+<app-footer />
