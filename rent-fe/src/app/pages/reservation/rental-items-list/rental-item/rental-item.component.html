@@ -84,11 +84,13 @@
               />
             </div>
           } @empty {
-            <div
-              class="flex-1 h-32 flex items-center justify-center border border-gray-200"
-            >
-              No photos
-            </div>
+            <ng-template #noPhotos>
+              <div
+                class="flex-1 h-32 flex items-center justify-center border border-gray-200"
+              >
+                No photos
+              </div>
+            </ng-template>
           }
         </div>
       </div>
